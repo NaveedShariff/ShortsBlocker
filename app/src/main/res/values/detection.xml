@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Detection rules. When YouTube changes its layout and blocking stops working,
+    this is the only file that should need editing.
+    Each item is a YouTube view ID that only exists inside the Shorts player.
+-->
+<resources>
+    <string-array name="shorts_view_ids">
+        <item>reel_recycler</item>
+        <item>reel_player_page_container</item>
+        <item>reel_watch_player</item>
+        <item>reel_player_overlay_container</item>
+        <item>reel_watch_fragment_root</item>
+    </string-array>
+
+    <!-- Second signal: the "Shorts" tab is selected in YouTube's bottom bar. -->
+    <string name="shorts_tab_label" translatable="false">Shorts</string>
+    <string name="bottom_bar_id_hint" translatable="false">pivot_bar</string>
+</resources>
