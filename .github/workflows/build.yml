@@ -38,8 +38,10 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
-          name: Shorts Blocker (build ${{ github.run_number }})
+          name: Shorts Blocker v2.0 (build ${{ github.run_number }})
           body: |
+            **New in v2.0:** blocks Instagram Reels as well as YouTube Shorts. Choose which in the app.
+
             Download **ShortsBlocker.apk** below and open it on your Android phone.
 
             📖 Step-by-step setup (with pictures): https://github.com/NaveedShariff/ShortsBlocker#readme

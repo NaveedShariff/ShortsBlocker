@@ -16,6 +16,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.function.Consumer;
+
 public class MainActivity extends Activity {
 
     private static final int FRICTION_SECONDS = 30;
@@ -25,6 +27,7 @@ public class MainActivity extends Activity {
     private View setupCard;
     private Switch toastSwitch;
     private Button mainButton;
+    private boolean settingSwitch = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,11 @@ public class MainActivity extends Activity {
 
         toastSwitch.setChecked(Prefs.showToast(this));
         toastSwitch.setOnCheckedChangeListener((CompoundButton b, boolean on) -> Prefs.setShowToast(this, on));
+
+        wireBlockSwitch(findViewById(R.id.youtube_switch), Prefs.blockYouTube(this),
+                on -> Prefs.setBlockYouTube(this, on));
+        wireBlockSwitch(findViewById(R.id.instagram_switch), Prefs.blockInstagram(this),
+                on -> Prefs.setBlockInstagram(this, on));
 
         mainButton.setOnClickListener(v -> {
             if (Prefs.isBlockingActive(this)) {
@@ -167,30 +175,59 @@ public class MainActivity extends Activity {
                 })
                 .create();
 
-        dialog.setOnShowListener(di -> {
-            final Button b1 = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            final Button b2 = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-            final Button b3 = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-            b1.setEnabled(false);
-            b2.setEnabled(false);
-            b3.setEnabled(false);
-            final CountDownTimer timer = new CountDownTimer(FRICTION_SECONDS * 1000L, 1000L) {
-                @Override
-                public void onTick(long left) {
-                    dialog.setMessage(getString(R.string.friction_wait, (int) (left / 1000) + 1));
-                }
-
-                @Override
-                public void onFinish() {
-                    dialog.setMessage(getString(R.string.friction_done));
-                    b1.setEnabled(true);
-                    b2.setEnabled(true);
-                    b3.setEnabled(true);
-                }
-            }.start();
-            dialog.setOnDismissListener(x -> timer.cancel());
-        });
+        dialog.setOnShowListener(di -> startCountdown(dialog,
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                dialog.getButton(AlertDialog.BUTTON_NEUTRAL),
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE)));
         dialog.show();
+    }
+
+    /** Keeps the buttons disabled for the 30-second wait, counting down in the message. */
+    private void startCountdown(AlertDialog dialog, Button... buttons) {
+        for (Button b : buttons) b.setEnabled(false);
+        final CountDownTimer timer = new CountDownTimer(FRICTION_SECONDS * 1000L, 1000L) {
+            @Override
+            public void onTick(long left) {
+                dialog.setMessage(getString(R.string.friction_wait, (int) (left / 1000) + 1));
+            }
+
+            @Override
+            public void onFinish() {
+                dialog.setMessage(getString(R.string.friction_done));
+                for (Button b : buttons) b.setEnabled(true);
+            }
+        }.start();
+        dialog.setOnDismissListener(x -> timer.cancel());
+    }
+
+    /** A per-app block switch. Turning it ON is instant; turning it OFF needs the same 30-second wait. */
+    private void wireBlockSwitch(Switch s, boolean checked, Consumer<Boolean> save) {
+        s.setChecked(checked);
+        s.setOnCheckedChangeListener((CompoundButton b, boolean on) -> {
+            if (settingSwitch) return;
+            if (on || !Prefs.isBlockingActive(this)) {
+                save.accept(on);
+                return;
+            }
+            setQuietly(s, true);
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle(R.string.friction_title)
+                    .setMessage(getString(R.string.friction_wait, FRICTION_SECONDS))
+                    .setPositiveButton(R.string.turn_off, (d, w) -> {
+                        save.accept(false);
+                        setQuietly(s, false);
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .create();
+            dialog.setOnShowListener(di -> startCountdown(dialog, dialog.getButton(AlertDialog.BUTTON_POSITIVE)));
+            dialog.show();
+        });
+    }
+
+    private void setQuietly(Switch s, boolean on) {
+        settingSwitch = true;
+        s.setChecked(on);
+        settingSwitch = false;
     }
 
     private void pauseFor(int minutes) {

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Detection rules. When YouTube changes its layout and blocking stops working,
+    Detection rules. When YouTube or Instagram changes its layout and blocking stops working,
     this is the only file that should need editing.
-    Each item is a YouTube view ID that only exists inside the Shorts player.
 -->
 <resources>
+    <!-- ===== YouTube Shorts ===== -->
+    <!-- Each item is a YouTube view ID that only exists inside the Shorts player. -->
     <string-array name="shorts_view_ids">
         <item>reel_recycler</item>
         <item>reel_player_page_container</item>
@@ -16,4 +17,20 @@
     <!-- Second signal: the "Shorts" tab is selected in YouTube's bottom bar. -->
     <string name="shorts_tab_label" translatable="false">Shorts</string>
     <string name="bottom_bar_id_hint" translatable="false">pivot_bar</string>
+
+    <!-- ===== Instagram Reels ===== -->
+    <!--
+        Instagram view IDs of the full-screen Reels player ("clips" is Instagram's internal name for Reels).
+        Do NOT add "reel_*" IDs here: inside Instagram, "reel" means Stories.
+        A match only counts when the view fills most of the screen, so small Reels previews
+        in the home feed are not blocked.
+    -->
+    <string-array name="instagram_reels_view_ids">
+        <item>clips_viewer_view_pager</item>
+        <item>clips_viewer_container</item>
+        <item>clips_viewer_fragment_container</item>
+    </string-array>
+
+    <!-- Second signal: the Reels tab is selected in Instagram's bottom bar. -->
+    <string name="instagram_reels_tab_id" translatable="false">clips_tab</string>
 </resources>

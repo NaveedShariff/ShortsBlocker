@@ -29,6 +29,22 @@ final class Prefs {
 
     static boolean isBlockingActive(Context c) { return isEnabled(c) && !isPaused(c); }
 
+    static boolean blockYouTube(Context c) { return p(c).getBoolean("block_youtube", true); }
+
+    static void setBlockYouTube(Context c, boolean on) { p(c).edit().putBoolean("block_youtube", on).apply(); }
+
+    static boolean blockInstagram(Context c) { return p(c).getBoolean("block_instagram", true); }
+
+    static void setBlockInstagram(Context c, boolean on) { p(c).edit().putBoolean("block_instagram", on).apply(); }
+
+    /** True when the blocker is on and the given app (YouTube or Instagram) is switched on. */
+    static boolean isBlockingActiveFor(Context c, String pkg) {
+        if (!isBlockingActive(c)) return false;
+        if (ShortsBlockerService.YT.equals(pkg)) return blockYouTube(c);
+        if (ShortsBlockerService.IG.equals(pkg)) return blockInstagram(c);
+        return false;
+    }
+
     static boolean showToast(Context c) { return p(c).getBoolean("show_toast", true); }
 
     static void setShowToast(Context c, boolean on) { p(c).edit().putBoolean("show_toast", on).apply(); }

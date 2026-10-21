@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Shorts Blocker</string>
-    <string name="tagline">Keep YouTube. Lose the Shorts.</string>
+    <string name="tagline">Keep YouTube and Instagram. Lose the Shorts and Reels.</string>
 
-    <string name="service_description">Shorts Blocker reads the screen layout of the YouTube app only, to notice when the Shorts player opens, and presses Back for you. It does not read any other app, does not record what you watch, and has no internet access, so nothing leaves your phone.</string>
+    <string name="service_description">Shorts Blocker reads the screen layout of the YouTube and Instagram apps only, to notice when YouTube Shorts or Instagram Reels open, and presses Back for you. It does not read any other app, does not record what you watch, and has no internet access, so nothing leaves your phone.</string>
 
     <string name="setup_title">One-time setup (1 minute)</string>
     <string name="setup_steps">1. Tap the button below.\n2. Find \"Shorts Blocker\" (it may be under \"Installed apps\" or \"Downloaded apps\").\n3. Turn it ON and tap Allow.\n4. Come back here.</string>
@@ -12,7 +12,7 @@
     <string name="restricted_button">Open app info</string>
 
     <string name="disclosure_title">Before you turn it on</string>
-    <string name="disclosure_text">Shorts Blocker uses Android\'s Accessibility permission to:\n\n• Read the screen layout of the YouTube app only (not the video, not other apps)\n• Notice when the Shorts player opens\n• Press Back for you\n\nIt stores only a daily count of blocks. It has no internet access, so nothing you watch ever leaves your phone.</string>
+    <string name="disclosure_text">Shorts Blocker uses Android\'s Accessibility permission to:\n\n• Read the screen layout of the YouTube and Instagram apps only (not the video, not your messages, not other apps)\n• Notice when YouTube Shorts or Instagram Reels open\n• Press Back for you\n\nIt stores only a daily count of blocks. It has no internet access, so nothing you watch ever leaves your phone.</string>
     <string name="i_agree">I agree</string>
     <string name="find_us_toast">Find \"Shorts Blocker\" and turn it on</string>
     <string name="open_settings_failed">Open Settings → Accessibility and turn on Shorts Blocker</string>
@@ -20,11 +20,11 @@
     <string name="status_setup_title">Not set up yet</string>
     <string name="status_setup_text">Finish the one-time setup above to start blocking.</string>
     <string name="status_on_title">🛡 Protecting you</string>
-    <string name="status_on_text">Shorts are blocked on YouTube. Normal videos work as usual.</string>
+    <string name="status_on_text">YouTube Shorts and Instagram Reels are blocked. Normal videos, posts and messages work as usual.</string>
     <string name="status_paused_title">⏸ Paused</string>
     <string name="status_paused_text">Blocking comes back on in about %1$d min.</string>
     <string name="status_off_title">Blocker is off</string>
-    <string name="status_off_text">Shorts are allowed right now.</string>
+    <string name="status_off_text">Shorts and Reels are allowed right now.</string>
 
     <string name="pause_or_off">Pause or turn off</string>
     <string name="turn_on">Turn blocker on</string>
@@ -32,20 +32,22 @@
 
     <string name="friction_title">Are you sure?</string>
     <string name="friction_wait">Take a breath. You can choose in %1$d seconds…</string>
-    <string name="friction_done">Still want Shorts? Pick one:</string>
+    <string name="friction_done">Still want Shorts and Reels? Pick one:</string>
     <string name="pause_15">15 min</string>
     <string name="pause_60">1 hour</string>
     <string name="turn_off">Turn off</string>
 
-    <string name="blocks_today">Shorts blocked today</string>
+    <string name="blocks_today">Blocked today</string>
     <string name="time_saved_value">~%1$d min</string>
     <string name="time_saved_label">Time saved (estimate)</string>
 
-    <string name="toast_setting">Show \"Shorts blocked\" message</string>
+    <string name="toast_setting">Show \"Blocked\" message</string>
+    <string name="block_youtube">Block YouTube Shorts</string>
+    <string name="block_instagram">Block Instagram Reels</string>
     <string name="battery_button">Keep it running (battery settings) →</string>
     <string name="test_button">Test it: open YouTube →</string>
     <string name="no_youtube">YouTube is not installed</string>
 
-    <string name="blocked_toast">Shorts blocked — stay focused 💪</string>
+    <string name="blocked_toast">Blocked — stay focused 💪</string>
     <string name="privacy_note">No account. No internet. Nothing leaves your phone.</string>
 </resources>
