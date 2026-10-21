@@ -39,5 +39,10 @@ jobs:
         with:
           tag_name: build-${{ github.run_number }}
           name: Shorts Blocker (build ${{ github.run_number }})
-          body: Download ShortsBlocker.apk below and open it on your Android phone.
+          body: |
+            Download **ShortsBlocker.apk** below and open it on your Android phone.
+
+            📖 Step-by-step setup (with pictures): https://github.com/NaveedShariff/ShortsBlocker#readme
+
+            If you see "App blocked to protect your device", switch off Play Protect for a moment while you install. See Step 1 in the guide.
           files: ShortsBlocker.apk
